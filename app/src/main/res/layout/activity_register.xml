@@ -15,15 +15,14 @@
         android:layout_height="wrap_content"
         android:text="Daftar Akun"
         android:textStyle="bold"
-        android:textSize="30sp"/>
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/txt_register_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Silahkan isi data diri anda untuk melanjutkan."
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:text="Silahkan isi data diri kamu untuk melanjutkan." />
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -72,6 +71,7 @@
         android:background="@drawable/bg_primary_button"
         android:text="Lanjutkan"
         android:textAllCaps="true"
+        android:textStyle="bold"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

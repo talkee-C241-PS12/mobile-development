@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".OnBoardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/logo_submark"/>
+
         <TextView
             android:id="@+id/txt_welcome"
             android:layout_width="wrap_content"
@@ -25,7 +30,8 @@
             android:gravity="center"
             android:text="@string/welcome"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"/>
 
         <TextView
             android:id="@+id/txt_welcome_desc"
@@ -33,9 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:gravity="center"
-            android:text="Aplikasi Bisindo Sign-Language yang dibuat oleh Capstone C241-PS125 Team Bangkit 2024 Batch 1."
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="Talkee adalah teman belajar dan bermain kamu untuk bahasa isyarat tangan!"
             android:layout_marginTop="12dp"/>
 
         <LinearLayout
