@@ -3,20 +3,15 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/inter_regular"/>
+        android:font="@font/poppins_regular"/>
 
     <font
         android:fontStyle="normal"
         android:fontWeight="700"
-        android:font="@font/inter_bold"/>
-
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="500"
-        android:font="@font/inter_medium"/>
+        android:font="@font/poppins_bold"/>
 
     <font
         android:fontStyle="normal"
         android:fontWeight="600"
-        android:font="@font/intersem"/>
+        android:font="@font/poppins_semibold"/>
 </font-family>

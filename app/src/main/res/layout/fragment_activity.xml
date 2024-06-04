@@ -36,8 +36,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="Mari lihat sejauh apa kamu berkembang dengan Talkee"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                tools:fontFamily="@font/inter_semibold" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
