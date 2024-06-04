@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Talkee</string>
+    <string name="welcome">Selamat datang di \n Aplikasi Talkee!</string>
+    <string name="nav_home">Beranda</string>
+    <string name="nav_activity">Aktivitas</string>
+    <string name="nav_profile">Profil</string>
+    <string name="activity_fragment_progress">Dipelajari</string>
+    <string name="activity_fragment_done_class">Kelas</string>
+    <string name="activity_fragment_done_game">Game</string>
+</resources>
