@@ -15,6 +15,27 @@
         android:theme="@style/Theme.Talkee"
         tools:targetApi="34">
         <activity
+            android:name=".LeaderboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LearnVideoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LearnListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LearnHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameCameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameSignActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameWordActivity"
+            android:exported="false" />
+        <activity
             android:name=".GameOnBoardActivity"
             android:exported="false" />
         <activity

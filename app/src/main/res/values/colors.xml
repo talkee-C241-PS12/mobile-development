@@ -5,6 +5,8 @@
     <color name="primary">#50C9EB</color>
     <color name="secondary">#2C3E50</color>
     <color name="error">#F44336</color>
+    <color name="correct">#3AE641</color>
+    <color name="point">#EBD250</color>
     <color name="black20">#33000000</color>
     <color name="black12">#1F000000</color>
 </resources>

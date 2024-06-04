@@ -1,10 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".GameOnBoardActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/bg_circular"
+            android:backgroundTint="@color/white"/>
+
+        <TextView
+            android:id="@+id/game_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Game Talkee"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_close"
+            android:visibility="invisible"
+            android:background="@drawable/bg_circular"
+            android:backgroundTint="@color/white"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:max="100"
+        android:progress="0"
+        android:indeterminate="false"
+        android:progressTint="@color/primary"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/game_text_box"
+                android:layout_width="300dp"
+                android:layout_height="400dp"
+                android:background="@drawable/bg_game_box"
+                android:layout_marginTop="30dp"
+                android:text="Hello"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/result_box"
+                android:layout_width="300dp"
+                android:layout_height="400dp"
+                android:background="@drawable/bg_game_box"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textSize="20sp"
+                    android:text="Selamat!\nKamu telah berhasil menyelesaikan permainan.\nKamu mendapatkan :"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/game_result_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_point"
+                    android:text="+500 poin"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingVertical="6dp"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginVertical="8dp"/>
+
+                <TextView
+                    android:id="@+id/game_result_answer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 / 7 benar"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mulai Permainan"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_primary_button"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -35,14 +35,15 @@
                 android:text="Bagaimana perasaanmu hari ini?" />
 
             <LinearLayout
+                android:id="@+id/leaderboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:gravity="center_vertical"
                 android:background="@drawable/bg_primary_button"
-                android:backgroundTint="@color/secondary">
+                android:backgroundTint="@color/secondary"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -52,43 +53,43 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_medal_blank"/>
+                        android:src="@drawable/ic_medal_blank" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="99+"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFD5AE"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_bold"
                         android:shadowColor="#C28044"
                         android:shadowDx="1.2"
                         android:shadowDy="1.2"
                         android:shadowRadius="1"
-                        android:fontFamily="@font/roboto_bold"
-                        android:layout_gravity="center"/>
+                        android:text="99+"
+                        android:textColor="#FFD5AE"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
                 </FrameLayout>
 
                 <ImageView
                     android:id="@+id/user_profile_pic"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ph_profile_picture"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ph_profile_picture" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:text="Bangkit Academy"/>
+                    android:text="Bangkit Academy"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="120"
                     android:textColor="@color/white"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 

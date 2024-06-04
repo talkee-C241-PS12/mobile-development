@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameHomeActivity">
+    tools:context=".LearnListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -46,14 +46,15 @@
                 android:backgroundTint="@color/white"/>
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Game Talkee"
-                android:textStyle="bold"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="Kata"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="32dp"
@@ -68,65 +69,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ayo bermain bersama Talkee, raih peringkat tertinggi dan jadi yang terbaik!"
+            android:text="Silahkan pilih kata atau huruf yang kamu mau pelajari!"
             android:layout_marginTop="20dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_primary_button"
-            android:backgroundTint="@color/secondary">
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_medal_blank"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="99+"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFD5AE"
-                    android:shadowColor="#C28044"
-                    android:shadowDx="1.2"
-                    android:shadowDy="1.2"
-                    android:shadowRadius="1"
-                    android:fontFamily="@font/roboto_bold"
-                    android:layout_gravity="center"/>
-            </FrameLayout>
-
-            <ImageView
-                android:id="@+id/user_profile_pic"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ph_profile_picture"
-                android:layout_marginEnd="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:text="Bangkit Academy"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="120"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-        </LinearLayout>
     </LinearLayout>
 
     <ImageView

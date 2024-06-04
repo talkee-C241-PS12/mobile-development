@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bangkit.talkee.GameHomeActivity
+import com.bangkit.talkee.LeaderboardActivity
+import com.bangkit.talkee.LearnHomeActivity
 import com.bangkit.talkee.R
 import com.bangkit.talkee.databinding.FragmentHistoryBinding
 import com.bangkit.talkee.databinding.FragmentHomeBinding
@@ -26,8 +28,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewClass.setOnClickListener {
+            val i = Intent(activity, LearnHomeActivity::class.java)
+            startActivity(i)
+        }
+
         binding.viewGame.setOnClickListener {
             val i = Intent(activity, GameHomeActivity::class.java)
+            startActivity(i)
+        }
+
+        binding.leaderboard.setOnClickListener {
+            val i = Intent(activity, LeaderboardActivity::class.java)
             startActivity(i)
         }
     }
