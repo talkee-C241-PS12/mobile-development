@@ -5,17 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LearnHomeActivity">
+    tools:context=".HistoryDetailActivity">
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/yt_player"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"
+        android:layout_height="0dp"
+        android:paddingHorizontal="14dp"
+        android:paddingTop="50dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/section_top" />
 
     <LinearLayout
         android:id="@+id/section_top"
@@ -27,7 +29,7 @@
         android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,15 +46,14 @@
                 android:backgroundTint="@color/white"/>
 
             <TextView
-                android:id="@+id/word_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="Game Talkee"
+                android:textStyle="bold"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Kata"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"/>
 
             <ImageView
                 android:layout_width="32dp"
@@ -64,11 +65,48 @@
                 android:backgroundTint="@color/white"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/leaderboard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Silahkan tonton video di bawah untuk mempelajari kata berikut!"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_primary_button"
+            android:backgroundTint="@color/secondary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4 / 7 benar"
+                    android:textStyle="bold"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05 Jun 2024 13:05"
+                    android:textSize="12sp"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+500"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ImageView
@@ -79,4 +117,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/section_top" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

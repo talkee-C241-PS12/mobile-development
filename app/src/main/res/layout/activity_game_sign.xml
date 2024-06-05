@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Manakah isyarat yang tepat?"/>
+            android:text="Manakah isyarat yang tepat? (100 poin)"/>
 
         <LinearLayout
             android:layout_width="match_parent"

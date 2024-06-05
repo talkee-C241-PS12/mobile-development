@@ -6,7 +6,11 @@
     <string name="nav_profile">Profil</string>
     <string name="answer_correct">Yup, kamu hebat!</string>
     <string name="answer_wrong">Yah, masih salah</string>
-    <string name="activity_fragment_progress">Dipelajari</string>
-    <string name="activity_fragment_done_class">Kelas</string>
-    <string name="activity_fragment_done_game">Game</string>
+    <string name="default_exit_title">Keluar</string>
+    <string name="default_exit_message">Apakah kamu yakin ingin keluar?</string>
+    <string name="default_exit_button_text">Keluar</string>
+    <string name="default_confirm_title">Konfirmasi</string>
+    <string name="default_confirm_message">Konfirmasi?</string>
+    <string name="default_confirm_button_text_no">Batal</string>
+    <string name="default_confirm_button_text_yes">Ya</string>
 </resources>

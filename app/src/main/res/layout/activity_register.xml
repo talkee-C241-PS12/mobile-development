@@ -22,7 +22,7 @@
         android:id="@+id/txt_register_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Silahkan isi data diri kamu untuk melanjutkan." />
+        android:text="Silahkan isi data diri kamu untuk melanjutkan. Pastikan nama yang kamu masukkan sudah benar ya!" />
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -55,14 +55,20 @@
             app:tint="@color/white" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/label_full_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama Lengkap"
+        android:layout_marginTop="30dp"/>
+
     <EditText
         android:id="@+id/et_full_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:hint="Nama lengkap"
-        android:padding="12dp"
-        android:layout_marginTop="20dp"/>
+        android:padding="12dp"/>
 
     <Button
         android:id="@+id/btn_continue"

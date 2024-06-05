@@ -49,8 +49,8 @@
 
                 <ImageView
                     android:id="@+id/img_profile"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ph_profile_picture"
                     app:tint="@color/black12" />
             </androidx.cardview.widget.CardView>
@@ -63,7 +63,7 @@
             android:text="Nama Pengguna"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="12dp"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
@@ -72,7 +72,6 @@
             android:layout_height="wrap_content"
             android:text="pengguna@bangkit.com"
             android:alpha="0.5"
-            android:textSize="16sp"
             android:layout_gravity="center_horizontal"/>
 
         <LinearLayout
@@ -88,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
                 android:background="@drawable/bg_circular"
-                android:padding="16dp"
+                android:padding="12dp"
                 app:tint="@color/white" />
 
             <TextView
@@ -96,9 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:text="Ubah profil"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Ubah profil"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -120,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_support_help"
                 android:background="@drawable/bg_circular"
-                android:padding="16dp"
+                android:padding="12dp"
                 app:tint="@color/white" />
 
             <TextView
@@ -128,9 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:text="Bantuan"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Bantuan" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -153,7 +148,7 @@
                 android:src="@drawable/ic_log_out"
                 android:background="@drawable/bg_circular"
                 android:backgroundTint="@color/error"
-                android:padding="16dp"
+                android:padding="12dp"
                 app:tint="@color/white" />
 
             <TextView
@@ -162,9 +157,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:text="Keluar"
-                android:textColor="@color/error"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textColor="@color/error"/>
 
             <ImageView
                 android:layout_width="wrap_content"

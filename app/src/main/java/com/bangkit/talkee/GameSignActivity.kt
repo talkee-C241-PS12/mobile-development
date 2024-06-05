@@ -8,6 +8,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,8 +16,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bangkit.talkee.databinding.ActivityGameSignBinding
 import com.bangkit.talkee.databinding.ActivityGameWordBinding
+import com.bangkit.talkee.fragment.dialog.ExitDialogFragment
 
-class GameSignActivity : AppCompatActivity() {
+class GameSignActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogListener {
 
     private lateinit var binding: ActivityGameSignBinding
 
@@ -59,6 +61,14 @@ class GameSignActivity : AppCompatActivity() {
 
         updateProgress()
         updateQuestion()
+
+        binding.btnClose.setOnClickListener { showExitDialog() }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
+        })
     }
 
     private fun updateProgress() {
@@ -163,5 +173,19 @@ class GameSignActivity : AppCompatActivity() {
             binding.dialogPoint.visibility = View.GONE
         }
         binding.dialogChoice.visibility = View.VISIBLE
+    }
+
+    override fun onExit() {
+        finish()
+    }
+
+    private fun showExitDialog() {
+        val exitDialog = ExitDialogFragment.newInstance(
+            "Keluar",
+            "Apakah kamu yakin ingin keluar? Game tidak akan disimpan.",
+            "Keluar"
+        )
+        exitDialog.listener = this
+        exitDialog.show(supportFragmentManager, "exitDialog")
     }
 }
