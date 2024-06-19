@@ -97,6 +97,7 @@ class GameOnBoardActivity : AppCompatActivity() {
     private fun setGameButton(gameType: Int, gameTitle: String, gameMaxPoints: Double, pertanyaan: ArrayList<PertanyaanItem>) {
         binding.btnStart.setOnClickListener {
             val i = when(gameType) {
+                0 -> Intent(this@GameOnBoardActivity, GameCameraActivity::class.java)
                 1 -> Intent(this@GameOnBoardActivity, GameWordActivity::class.java)
                 2 -> Intent(this@GameOnBoardActivity, GameSignActivity::class.java)
                 else -> {

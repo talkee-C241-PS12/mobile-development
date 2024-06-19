@@ -23,4 +23,5 @@
     <string name="failed_to_load_kelas">Gagal mendapatkan kelas.\nSilahkan coba lagi nanti ya!</string>
     <string name="question_game_word">Manakah yang paling tepat?</string>
     <string name="question_game_sign">Manakah isyarat yang tepat?</string>
+    <string name="question_game_camera">Yuk kita peragakan!</string>
 </resources>

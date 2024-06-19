@@ -68,43 +68,58 @@
             android:layout_weight="1"
             android:text="A"
             android:textSize="100sp"
+            android:textAllCaps="true"
             android:gravity="center" />
 
         <TextView
+            android:id="@+id/question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Yuk kita peragakan! (100 poin)"/>
+            android:text="@string/question_game_camera"/>
 
-        <LinearLayout
-            android:id="@+id/btn_camera"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_primary_button"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_camera"
-                app:tint="@color/white"/>
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/btn_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buka Kamera"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:includeFontPadding="false"
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="12dp"/>
-        </LinearLayout>
+                android:background="@drawable/bg_primary_button"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_camera"
+                    app:tint="@color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Buka Kamera"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_circular_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -152,11 +167,4 @@
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
-
-    <VideoView
-        android:id="@+id/video_preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_margin="24dp"/>
 </FrameLayout>

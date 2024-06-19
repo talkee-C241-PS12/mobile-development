@@ -10,9 +10,11 @@ import com.bangkit.talkee.data.response.GameAnswerResponse
 import com.bangkit.talkee.data.response.GameDetailResponse
 import com.bangkit.talkee.data.response.GameResponse
 import com.bangkit.talkee.data.response.GameStartResponse
+import com.bangkit.talkee.data.response.ModelMLResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.io.File
 
 class GameViewModel(private val repo: GameRepository) : ViewModel() {
 
@@ -27,6 +29,9 @@ class GameViewModel(private val repo: GameRepository) : ViewModel() {
 
     private val _gameAnswerResponse = MutableLiveData<GameAnswerResponse>()
     val gameAnswerResponse: LiveData<GameAnswerResponse> = _gameAnswerResponse
+
+    private val _modelMLResponse = MutableLiveData<ModelMLResponse>()
+    val modelMLResponse: LiveData<ModelMLResponse> = _modelMLResponse
 
     private val _successMessage = MutableLiveData<String>()
     val successMessage: LiveData<String> = _successMessage

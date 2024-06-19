@@ -9,12 +9,12 @@ import com.bangkit.talkee.data.response.HistoryResponse
 import com.bangkit.talkee.data.response.KelasDetailResponse
 import com.bangkit.talkee.data.response.KelasResponse
 import com.bangkit.talkee.data.response.LeaderboardResponse
+import com.bangkit.talkee.data.response.ModelMLResponse
 import com.bangkit.talkee.data.response.ProfileResponse
 import com.bangkit.talkee.data.response.ProfileUpdateResponse
 import com.bangkit.talkee.data.response.SignInResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -91,6 +91,8 @@ interface ApiService {
     suspend fun getLeaderboard() : LeaderboardResponse
 
     @Multipart
-    @POST("api/predict")
-    suspend fun predictModel() : LeaderboardResponse
+    @POST("predict")
+    suspend fun predictModel(
+        @Part video: MultipartBody.Part,
+    ) : ModelMLResponse
 }

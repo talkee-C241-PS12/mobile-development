@@ -9,7 +9,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object{
-        fun getApiService(): ApiService {
+        fun getApiService(): ApiService{
+            return getApiService(ROUTE_BASE_URL)
+        }
+
+        fun getApiService(route: String): ApiService {
             val loggingInterceptor = if(BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             } else {
@@ -26,11 +30,18 @@ class ApiConfig {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
+                .baseUrl(if(route != ROUTE_ML_MODEL) {
+                    BuildConfig.BASE_URL
+                } else {
+                    BuildConfig.MODEL_URL
+                })
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
             return retrofit.create(ApiService::class.java)
         }
+
+        const val ROUTE_BASE_URL = "ROUTE_BASE_URL"
+        const val ROUTE_ML_MODEL = "ROUTE_ML_MODEL"
     }
 }
