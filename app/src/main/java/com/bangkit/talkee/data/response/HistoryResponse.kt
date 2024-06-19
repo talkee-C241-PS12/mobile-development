@@ -6,39 +6,79 @@ import com.google.gson.annotations.SerializedName
 
 data class HistoryResponse(
 
-    @field:SerializedName("listHistory")
-    val listHistory: List<ListHistoryItem> = emptyList(),
+	@field:SerializedName("data")
+	val data: List<HistoryItem?>? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
 )
 
-data class ListHistoryItem(
+data class HistoryItem(
 
-    @field:SerializedName("id")
-    val id: String,
+	@field:SerializedName("poin")
+	val poin: Double? = null,
 
-    @field:SerializedName("title")
-    val title: String? = null,
+	@field:SerializedName("image")
+	val image: String? = null,
+
+	@field:SerializedName("idgame")
+	val idgame: String? = null,
+
+	@field:SerializedName("nama")
+	val nama: String? = null,
+
+	@field:SerializedName("poinuser")
+	val poinuser: Double? = null,
+
+	@field:SerializedName("idusergame")
+	val idusergame: String? = null,
+
+	@field:SerializedName("tanggal")
+	val tanggal: String? = null,
+
+	@field:SerializedName("tips")
+	val tips: String? = null,
+
+	@field:SerializedName("pertanyaan")
+	val pertanyaan: String? = null
+
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
-        parcel.readString(),
-    )
+	constructor(parcel: Parcel) : this(
+		parcel.readValue(Double::class.java.classLoader) as? Double,
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readValue(Double::class.java.classLoader) as? Double,
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readString()
+	) {
+	}
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(title)
-    }
+	override fun writeToParcel(parcel: Parcel, flags: Int) {
+		parcel.writeValue(poin)
+		parcel.writeString(image)
+		parcel.writeString(idgame)
+		parcel.writeString(nama)
+		parcel.writeValue(poinuser)
+		parcel.writeString(idusergame)
+		parcel.writeString(tanggal)
+		parcel.writeString(tips)
+		parcel.writeString(pertanyaan)
+	}
 
-    override fun describeContents(): Int {
-        return 0
-    }
+	override fun describeContents(): Int {
+		return 0
+	}
 
-    companion object CREATOR : Parcelable.Creator<ListGameItem> {
-        override fun createFromParcel(parcel: Parcel): ListGameItem {
-            return ListGameItem(parcel)
-        }
+	companion object CREATOR : Parcelable.Creator<HistoryItem> {
+		override fun createFromParcel(parcel: Parcel): HistoryItem {
+			return HistoryItem(parcel)
+		}
 
-        override fun newArray(size: Int): Array<ListGameItem?> {
-            return arrayOfNulls(size)
-        }
-    }
+		override fun newArray(size: Int): Array<HistoryItem?> {
+			return arrayOfNulls(size)
+		}
+	}
 }

@@ -37,15 +37,15 @@
             app:cardElevation="0dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/img_profile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/ph_profile_picture"
-                app:tint="@color/black12" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ph_profile_picture" />
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/btn_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="6dp"

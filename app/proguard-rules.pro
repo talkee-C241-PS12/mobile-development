@@ -5,6 +5,22 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+# CameraX
+-keep class androidx.camera.** { *; }
+-keep interface androidx.camera.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep interface androidx.lifecycle.** { *; }
+-keep class androidx.core.** { *; }
+-keep interface androidx.core.** { *; }
+-keep class androidx.camera.view.PreviewView { *; }
+
+# Gson (if used with Retrofit)
+-keep class com.google.gson.** { *; }
+-keep class com.squareup.retrofit2.** { *; }
+
+# Prevent stripping of annotations
+-keepattributes *Annotation*
+
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:

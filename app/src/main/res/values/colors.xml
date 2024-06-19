@@ -9,4 +9,7 @@
     <color name="point">#EBD250</color>
     <color name="black20">#33000000</color>
     <color name="black12">#1F000000</color>
+    <color name="rank_first">#FF9800</color>
+    <color name="rank_second">#EFEFEE</color>
+    <color name="rank_default">#FFD5AE</color>
 </resources>

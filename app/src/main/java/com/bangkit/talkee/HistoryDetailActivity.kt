@@ -1,66 +1,137 @@
 package com.bangkit.talkee
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.talkee.adapter.HistoryAdapter
 import com.bangkit.talkee.adapter.HistoryGameSignAdapter
 import com.bangkit.talkee.adapter.HistoryGameWordAdapter
-import com.bangkit.talkee.data.response.HistoryGameResponse
-import com.bangkit.talkee.data.response.HistoryResponse
-import com.bangkit.talkee.data.response.ListHistoryItem
-import com.bangkit.talkee.data.response.ListQuestionItem
+import com.bangkit.talkee.data.preference.TokenManager
+import com.bangkit.talkee.data.repository.HistoryRepository
+import com.bangkit.talkee.data.response.HistoryItem
+import com.bangkit.talkee.data.retrofit.ApiConfig
+import com.bangkit.talkee.data.viewmodel.HistoryViewModel
+import com.bangkit.talkee.data.viewmodel.HistoryViewModelFactory
 import com.bangkit.talkee.databinding.ActivityHistoryDetailBinding
+import kotlin.math.roundToInt
 
 class HistoryDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoryDetailBinding
-    private val questions = listOf(
-        listOf("A", "D", "O"),
-        listOf("D", "O", "A"),
-        listOf("O", "D", "A"),
-        listOf("O", "A", "D"),
-        listOf("A", "O", "D"),
-        listOf("D", "A", "O"),
-    )
-    private val answers = listOf("A", "D", "A", "O", "D", "A")
+    private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var gameId: String
+    private var gameType: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val type = intent.getIntExtra("TYPE", 0)
+        isLoading(true)
 
-        val itemsList = mutableListOf<ListQuestionItem>()
-
-        for(i in answers.indices) {
-            val history = ListQuestionItem(
-                "id$i",
-                0,
-                i + 1,
-                answers[i],
-                questions[i].joinToString(","),
-                questions[i][i % 2],
-                (i % 2 == 0).toString(),
-            )
-
-            itemsList.add(history)
+        val detailHistory = if(Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra(SELECTED_ITEM, HistoryItem::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(SELECTED_ITEM)
         }
 
-        val response = HistoryGameResponse(itemsList)
+        if (detailHistory != null) {
+            gameId = detailHistory.idusergame!!
+            binding.historyTitle.text = detailHistory.nama
+            binding.historyDate.text = detailHistory.tanggal
+
+            initViewModel()
+        } else {
+            isLoading(false)
+            binding.tvFailedToLoad.visibility = View.VISIBLE
+        }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = when(type) {
-            0 -> HistoryGameWordAdapter(response)
-            1 -> HistoryGameSignAdapter(response)
-            else -> HistoryGameWordAdapter(response)
-        }
+        binding.recyclerView.adapter = HistoryGameWordAdapter(null)
 
         binding.btnClose.setOnClickListener { finish() }
+    }
+    private fun initViewModel() {
+        val apiService = ApiConfig.getApiService()
+        val repo = HistoryRepository(apiService)
+        val historyViewModelFactory = HistoryViewModelFactory(repo)
+        historyViewModel = ViewModelProvider(this, historyViewModelFactory)[HistoryViewModel::class.java]
+
+        initObserver()
+    }
+
+    private fun initObserver() {
+        historyViewModel.errorMessage.observe(this) { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+                showToast("Koneksi bermasalah, silahkan coba lagi nanti!")
+                historyViewModel.clearErrorMessage()
+            }
+        }
+
+        historyViewModel.successMessage.observe(this) { successMessage ->
+            if (successMessage.isNotEmpty()) {
+                historyViewModel.clearSuccessMessage()
+            }
+        }
+
+        historyViewModel.historyDetailResponse.observe(this) { historyDetail ->
+            isLoading(false)
+            if (!(historyDetail.pertanyaan.isNullOrEmpty())) {
+                val adapter = when(gameType) {
+                    1 -> HistoryGameWordAdapter(historyDetail)
+                    2 -> HistoryGameSignAdapter(historyDetail)
+                    else -> HistoryGameWordAdapter(historyDetail)
+                }
+
+                val totalQuestions = historyDetail.pertanyaan.size
+                val userCorrectAnswers = ((totalQuestions * historyDetail.poinuser!!).toDouble() / historyDetail.poin!!.toDouble()).roundToInt()
+                val pointText = "+${historyDetail.poinuser} poin"
+
+                binding.historyTotalQuestions.text = totalQuestions.toString()
+                binding.historyUserCorrect.text = userCorrectAnswers.toString()
+                binding.historyPoints.text = pointText
+
+                binding.recyclerView.adapter = adapter
+                binding.progressCircularHeader.visibility = View.GONE
+                binding.historyHeader.visibility = View.VISIBLE
+            } else {
+                binding.tvFailedToLoad.visibility = View.VISIBLE
+            }
+        }
+
+        if(gameId.isNotEmpty()) {
+            val tokenManager = TokenManager(this)
+            val idToken = tokenManager.getIDToken()
+
+            if(idToken != null) {
+                getHistoryDetail(idToken, gameId)
+            }
+        }
+    }
+
+    private fun getHistoryDetail(token: String, idRiwayat: String) {
+        isLoading(true)
+        historyViewModel.getHistoryDetail(token, idRiwayat)
+    }
+
+    private fun isLoading(isLoading: Boolean) {
+        if(isLoading) {
+            binding.progressCircular.visibility = View.VISIBLE
+        } else {
+            binding.progressCircular.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    companion object {
+        const val SELECTED_ITEM = "SELECTED_HISTORY"
     }
 }

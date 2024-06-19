@@ -3,20 +3,21 @@ package com.bangkit.talkee.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.talkee.data.response.LearnHomeResponse
-import com.bangkit.talkee.data.response.ListLearnItem
+import com.bangkit.talkee.data.response.KelasItem
+import com.bangkit.talkee.data.response.KelasResponse
 import com.bangkit.talkee.databinding.ViewLearnItemBinding
+import com.bumptech.glide.Glide
 
-class LearnHomeAdapter(private val learnItems: LearnHomeResponse?) : RecyclerView.Adapter<LearnHomeAdapter.ViewHolder>() {
+class LearnHomeAdapter(private val learnItems: KelasResponse?) : RecyclerView.Adapter<LearnHomeAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     inner class ViewHolder(private val binding: ViewLearnItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListLearnItem) {
-//            Glide.with(binding.userPic.context).load(item.avatarUrl).into(binding.userPic)
-            binding.learnTitle.text = item.title
+        fun bind(item: KelasItem) {
+            Glide.with(binding.learnImage.context).load(item.image).into(binding.learnImage)
+            binding.learnTitle.text = item.namakelas
             binding.root.setOnClickListener {
-                onItemClickCallback.onItemClicked(item.title ?: "")
+                onItemClickCallback.onItemClicked(item)
             }
         }
     }
@@ -27,11 +28,11 @@ class LearnHomeAdapter(private val learnItems: LearnHomeResponse?) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        learnItems?.listLearnItem?.get(position)?.let { holder.bind(it) }
+        learnItems?.data?.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return learnItems?.listLearnItem?.size ?: 0
+        return learnItems?.data?.size ?: 0
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -39,7 +40,7 @@ class LearnHomeAdapter(private val learnItems: LearnHomeResponse?) : RecyclerVie
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(title: String)
+        fun onItemClicked(kelas: KelasItem)
     }
 
 }

@@ -3,22 +3,19 @@ package com.bangkit.talkee.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.talkee.data.response.LearnHomeResponse
-import com.bangkit.talkee.data.response.LearnListResponse
-import com.bangkit.talkee.data.response.ListLearnItem
-import com.bangkit.talkee.data.response.ListWordItem
-import com.bangkit.talkee.databinding.ViewLearnItemBinding
+import com.bangkit.talkee.data.response.KelasDetailItem
+import com.bangkit.talkee.data.response.KelasDetailResponse
 import com.bangkit.talkee.databinding.ViewWordItemBinding
 
-class LearnListAdapter(private val words: LearnListResponse?) : RecyclerView.Adapter<LearnListAdapter.ViewHolder>() {
+class LearnListAdapter(private val detailKelas: KelasDetailResponse?) : RecyclerView.Adapter<LearnListAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     inner class ViewHolder(private val binding: ViewWordItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListWordItem) {
-            binding.wordName.text = item.title
+        fun bind(item: KelasDetailItem) {
+            binding.title.text = item.kata
             binding.root.setOnClickListener {
-                onItemClickCallback.onItemClicked(item.title ?: "")
+                onItemClickCallback.onItemClicked(item)
             }
         }
     }
@@ -29,11 +26,11 @@ class LearnListAdapter(private val words: LearnListResponse?) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        words?.listWord?.get(position)?.let { holder.bind(it) }
+        detailKelas?.data?.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return words?.listWord?.size ?: 0
+        return detailKelas?.data?.size ?: 0
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -41,7 +38,6 @@ class LearnListAdapter(private val words: LearnListResponse?) : RecyclerView.Ada
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(title: String)
+        fun onItemClicked(detailKelas: KelasDetailItem)
     }
-
 }

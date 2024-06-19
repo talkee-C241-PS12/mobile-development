@@ -4,35 +4,33 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.talkee.R
+import com.bangkit.talkee.data.response.LeaderboardItem
 import com.bangkit.talkee.data.response.LeaderboardResponse
-import com.bangkit.talkee.data.response.LearnListResponse
-import com.bangkit.talkee.data.response.ListUserItem
-import com.bangkit.talkee.data.response.ListWordItem
 import com.bangkit.talkee.databinding.ViewLeaderboardItemBinding
+import com.bumptech.glide.Glide
 
-class LeaderboardAdapter(private val users: LeaderboardResponse?) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
+class LeaderboardAdapter(private val leaderboard: LeaderboardResponse?) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ViewLeaderboardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListUserItem) {
-            binding.userName.text = item.name
-            binding.userRank.text = item.rank.toString()
-            binding.userScore.text = item.score.toString()
+        fun bind(item: LeaderboardItem) {
+            binding.userName.text = item.nama
+            binding.userRank.text = item.leaderboard.toString()
+            binding.userScore.text = item.poin.toString()
+            Glide.with(binding.userProfilePic.context).load(item.image).into(binding.userProfilePic)
 
-            when (item.rank) {
+            when(item.leaderboard) {
                 1 -> {
                     binding.iconRank.setImageResource(R.drawable.ic_medal_first)
+                    binding.userRank.setTextColor(binding.userRank.context.resources.getColor(R.color.rank_first))
                 }
                 2 -> {
                     binding.iconRank.setImageResource(R.drawable.ic_medal_second)
+                    binding.userRank.setTextColor(binding.userRank.context.resources.getColor(R.color.rank_second))
                 }
                 else -> {
                     binding.iconRank.setImageResource(R.drawable.ic_medal_blank)
+                    binding.userRank.setTextColor(binding.userRank.context.resources.getColor(R.color.rank_default))
                 }
-            }
-            binding.root.setOnClickListener {
-                onItemClickCallback.onItemClicked(item.name ?: "")
             }
         }
     }
@@ -43,19 +41,10 @@ class LeaderboardAdapter(private val users: LeaderboardResponse?) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        users?.listUser?.get(position)?.let { holder.bind(it) }
+        leaderboard?.data?.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return users?.listUser?.size ?: 0
+        return leaderboard?.data?.size ?: 0
     }
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(title: String)
-    }
-
 }

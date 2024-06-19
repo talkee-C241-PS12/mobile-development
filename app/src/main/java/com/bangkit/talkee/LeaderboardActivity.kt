@@ -1,52 +1,90 @@
 package com.bangkit.talkee
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.talkee.adapter.LeaderboardAdapter
-import com.bangkit.talkee.data.response.LeaderboardResponse
-import com.bangkit.talkee.data.response.LearnListResponse
-import com.bangkit.talkee.data.response.ListUserItem
-import com.bangkit.talkee.data.response.ListWordItem
+import com.bangkit.talkee.data.repository.LeaderboardRepository
+import com.bangkit.talkee.data.retrofit.ApiConfig
+import com.bangkit.talkee.data.viewmodel.LeaderboardViewModel
+import com.bangkit.talkee.data.viewmodel.LeaderboardViewModelFactory
 import com.bangkit.talkee.databinding.ActivityLeaderboardBinding
 
 class LeaderboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLeaderboardBinding
     private lateinit var leaderboardAdapter: LeaderboardAdapter
+    private lateinit var leaderboardViewModel: LeaderboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLeaderboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val itemsList = mutableListOf<ListUserItem>()
+        initViewModel()
 
-        for(i in 1..10) {
-            val item = ListUserItem(
-                "id$i",
-                "User $i",
-                i,
-                100 - i
-            )
-
-            itemsList.add(item)
-        }
-
-        val response = LeaderboardResponse(itemsList)
-        leaderboardAdapter = LeaderboardAdapter(response)
+        leaderboardAdapter = LeaderboardAdapter(null)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = leaderboardAdapter
 
-        leaderboardAdapter.setOnItemClickCallback(object : LeaderboardAdapter.OnItemClickCallback {
-            override fun onItemClicked(title: String) {
-
-            }
-        })
-
         binding.btnClose.setOnClickListener { finish() }
+    }
+
+    private fun initViewModel() {
+        val apiService = ApiConfig.getApiService()
+        val repo = LeaderboardRepository(apiService)
+        val leaderboardViewModelFactory = LeaderboardViewModelFactory(repo)
+        leaderboardViewModel = ViewModelProvider(this, leaderboardViewModelFactory)[LeaderboardViewModel::class.java]
+
+        initObserver()
+    }
+
+    private fun initObserver() {
+        leaderboardViewModel.errorMessage.observe(this) { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+                showToast("Koneksi bermasalah, silahkan coba lagi nanti!")
+                leaderboardViewModel.clearErrorMessage()
+            }
+        }
+
+        leaderboardViewModel.successMessage.observe(this) { successMessage ->
+            if (successMessage.isNotEmpty()) {
+                leaderboardViewModel.clearSuccessMessage()
+            }
+        }
+
+        leaderboardViewModel.leaderboardResponse.observe(this) { leaderboard ->
+            isLoading(false)
+            if (!(leaderboard.data.isNullOrEmpty())) {
+                val adapter = LeaderboardAdapter(leaderboard)
+
+                binding.recyclerView.adapter = adapter
+            } else {
+                binding.tvFailedToLoad.text = getString(R.string.failed_to_load_leaderboard)
+                binding.tvFailedToLoad.visibility = View.VISIBLE
+            }
+        }
+
+        getLeaderboard()
+    }
+
+    private fun getLeaderboard() {
+        isLoading(true)
+        leaderboardViewModel.getLeaderboard()
+    }
+
+    private fun isLoading(isLoading: Boolean) {
+        if(isLoading) {
+            binding.progressCircular.visibility = View.VISIBLE
+        } else {
+            binding.progressCircular.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

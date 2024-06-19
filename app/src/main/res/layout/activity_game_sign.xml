@@ -68,13 +68,15 @@
             android:layout_weight="1"
             android:text="A"
             android:textSize="100sp"
+            android:textAllCaps="true"
             android:gravity="center" />
 
         <TextView
+            android:id="@+id/question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Manakah isyarat yang tepat? (100 poin)"/>
+            android:text="@string/question_game_sign"/>
 
         <LinearLayout
             android:layout_width="match_parent"

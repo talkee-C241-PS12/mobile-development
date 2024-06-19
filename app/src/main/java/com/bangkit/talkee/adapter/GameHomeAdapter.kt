@@ -3,21 +3,24 @@ package com.bangkit.talkee.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.talkee.data.response.GameHomeResponse
-import com.bangkit.talkee.data.response.ListGameItem
+import com.bangkit.talkee.data.response.GameItem
+import com.bangkit.talkee.data.response.GameResponse
 import com.bangkit.talkee.databinding.ViewGameItemBinding
+import com.bumptech.glide.Glide
 
-class GameHomeAdapter(private val games: GameHomeResponse?) : RecyclerView.Adapter<GameHomeAdapter.ViewHolder>() {
+class GameHomeAdapter(private val games: GameResponse?) : RecyclerView.Adapter<GameHomeAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     inner class ViewHolder(private val binding: ViewGameItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListGameItem) {
-//            Glide.with(binding.userPic.context).load(item.avatarUrl).into(binding.userPic)
-            binding.gameTitle.text = item.title
-            binding.gameDesc.text = item.description
+        fun bind(item: GameItem) {
+            val pointsText = "+${item.poin} poin"
+            Glide.with(binding.gameImage.context).load(item.image).into(binding.gameImage)
+            binding.gameTitle.text = item.nama
+            binding.gamePoints.text = pointsText
+//            binding.gameDesc.text = item.image
             binding.root.setOnClickListener {
-                onItemClickCallback.onItemClicked(item.title ?: "")
+                onItemClickCallback.onItemClicked(item)
             }
         }
     }
@@ -28,11 +31,11 @@ class GameHomeAdapter(private val games: GameHomeResponse?) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        games?.listGame?.get(position)?.let { holder.bind(it) }
+        games?.data?.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return games?.listGame?.size ?: 0
+        return games?.data?.size ?: 0
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -40,7 +43,7 @@ class GameHomeAdapter(private val games: GameHomeResponse?) : RecyclerView.Adapt
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(title: String)
+        fun onItemClicked(game: GameItem)
     }
 
 }

@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="A"
-            android:textSize="50sp"/>
+            android:textSize="50sp"
+            android:textAllCaps="true"/>
     </LinearLayout>
 
     <LinearLayout

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -15,6 +16,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://backend-k6kpm6mhla-et.a.run.app/\"")
+        buildConfigField("String", "MODEL_URL", "\"https://ml-back-k6kpm6mhla-et.a.run.app/predict\"")
+        buildConfigField("String", "WEB_CLIENT_ID", "\"313139762096-ag2o620aan48cooiv5qotar13hq6f0j2.apps.googleusercontent.com\"")
+        buildConfigField("String", "CLIENT_SECRET", "\"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\"")
     }
 
     buildTypes {
@@ -35,7 +41,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        mlModelBinding = true
+        buildConfig = true
     }
 }
 
@@ -50,6 +56,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
 
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
@@ -64,6 +71,20 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    implementation("androidx.credentials:credentials:1.2.2")
+    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+
+    val camerax = "1.3.4"
+    implementation("androidx.camera:camera-core:$camerax")
+    implementation("androidx.camera:camera-camera2:$camerax")
+    implementation("androidx.camera:camera-lifecycle:$camerax")
+    implementation("androidx.camera:camera-video:$camerax")
+    implementation("androidx.camera:camera-view:$camerax")
+    implementation("androidx.camera:camera-extensions:$camerax")
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

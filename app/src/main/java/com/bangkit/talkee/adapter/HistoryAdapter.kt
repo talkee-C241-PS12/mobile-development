@@ -3,19 +3,22 @@ package com.bangkit.talkee.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.talkee.data.response.HistoryItem
 import com.bangkit.talkee.data.response.HistoryResponse
-import com.bangkit.talkee.data.response.ListHistoryItem
 import com.bangkit.talkee.databinding.ViewHistoryItemBinding
+import kotlin.math.roundToInt
 
 class HistoryAdapter(private val history: HistoryResponse?) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     inner class ViewHolder(private val binding: ViewHistoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListHistoryItem) {
-            binding.wordName.text = item.title
+        fun bind(item: HistoryItem) {
+            val pointText = "+${item.poinuser?.roundToInt()}"
+            binding.title.text = item.nama
+            binding.historyPoints.text = pointText
             binding.root.setOnClickListener {
-                onItemClickCallback.onItemClicked(item.id)
+                onItemClickCallback.onItemClicked(item)
             }
         }
     }
@@ -26,11 +29,11 @@ class HistoryAdapter(private val history: HistoryResponse?) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        history?.listHistory?.get(position)?.let { holder.bind(it) }
+        history?.data?.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return history?.listHistory?.size ?: 0
+        return history?.data?.size ?: 0
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -38,7 +41,7 @@ class HistoryAdapter(private val history: HistoryResponse?) : RecyclerView.Adapt
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(id: String)
+        fun onItemClicked(item: HistoryItem)
     }
 
 }

@@ -13,4 +13,14 @@
     <string name="default_confirm_message">Konfirmasi?</string>
     <string name="default_confirm_button_text_no">Batal</string>
     <string name="default_confirm_button_text_yes">Ya</string>
+    <string name="default_image_title">Gambar</string>
+    <string name="default_image_message">Pilih salah satu metode untuk mengambil gambar untuk profil kamu</string>
+    <string name="default_image_button_text_camera">Kamera</string>
+    <string name="default_image_button_text_gallery">Galeri</string>
+    <string name="empty_history">Riwayat bermain masih kosong.\nAyo bermain bersama Talkee!</string>
+    <string name="failed_to_load_history">Gagal mendapatkan riwayat bermain.\nSilahkan coba lagi nanti ya!</string>
+    <string name="failed_to_load_leaderboard">Gagal mendapatkan leaderboard.\nSilahkan coba lagi nanti ya!</string>
+    <string name="failed_to_load_kelas">Gagal mendapatkan kelas.\nSilahkan coba lagi nanti ya!</string>
+    <string name="question_game_word">Manakah yang paling tepat?</string>
+    <string name="question_game_sign">Manakah isyarat yang tepat?</string>
 </resources>

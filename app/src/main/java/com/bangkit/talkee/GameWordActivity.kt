@@ -1,49 +1,91 @@
 package com.bangkit.talkee
 
 import android.content.Intent
-import android.opengl.Visibility
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import com.bangkit.talkee.data.preference.TokenManager
+import com.bangkit.talkee.data.repository.GameRepository
+import com.bangkit.talkee.data.response.PertanyaanItem
+import com.bangkit.talkee.data.retrofit.ApiConfig
+import com.bangkit.talkee.data.viewmodel.GameViewModel
+import com.bangkit.talkee.data.viewmodel.GameViewModelFactory
 import com.bangkit.talkee.databinding.ActivityGameWordBinding
 import com.bangkit.talkee.fragment.dialog.ExitDialogFragment
+import com.bangkit.talkee.utils.getFixedResources
+import kotlin.math.roundToInt
 
 class GameWordActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogListener {
 
     private lateinit var binding: ActivityGameWordBinding
+    private lateinit var gameViewModel: GameViewModel
     private var currentQuestionIndex = 0
     private var score = 0
+    private var maxPoints = 0.0
+    private lateinit var userIdToken: String
 
-    private val questions = listOf(
-        listOf("A", "B", "C"),
-        listOf("D", "E", "F"),
-        listOf("A", "C", "G"),
-        listOf("D", "M", "C"),
-        listOf("Z", "X", "C"),
-        listOf("A", "J", "L"),
-        listOf("P", "O", "X"),
-        listOf("C", "D", "J"),
-        listOf("I", "O", "A"),
-    )
-    private val answers = listOf("B", "E", "A", "C", "X", "J", "P", "C", "I")
+    private lateinit var questions: MutableList<MutableList<String?>>
+    private lateinit var questionsId: MutableList<String?>
+    private lateinit var answers: MutableList<String?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameWordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val title = intent.getStringExtra("TITLE")
-        binding.gameTitle.text = title
+        getUserIdToken()
+        initViewModel()
+
+        val pertanyaanList: ArrayList<PertanyaanItem>? = if(Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableArrayListExtra(GameOnBoardActivity.SELECTED_ITEM, PertanyaanItem::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableArrayListExtra(GameOnBoardActivity.SELECTED_ITEM)
+        }
+        val gameTitle = intent.getStringExtra(GameOnBoardActivity.GAME_TITLE)
+        val gameMaxPoints = intent.getDoubleExtra(GameOnBoardActivity.GAME_MAX_POINTS, 0.0)
+
+        binding.gameTitle.text = gameTitle
+        maxPoints = gameMaxPoints
+
+        if(pertanyaanList != null) {
+            val questionsBuff: MutableList<MutableList<String?>> = mutableListOf()
+            val questionsIdBuff: MutableList<String?> = mutableListOf()
+            val answersBuff: MutableList<String?> = mutableListOf()
+
+            for(pertanyaan in pertanyaanList) {
+                val choiceBuff: MutableList<String?> = mutableListOf()
+                choiceBuff.add(pertanyaan.jawaban1)
+                choiceBuff.add(pertanyaan.jawaban2)
+                choiceBuff.add(pertanyaan.jawaban3)
+
+                answersBuff.add(pertanyaan.jawaban)
+                questionsIdBuff.add(pertanyaan.idpertanyaan)
+                questionsBuff.add(choiceBuff)
+            }
+
+            questions = questionsBuff
+            questionsId = questionsIdBuff
+            answers = answersBuff
+        } else {
+            questions = mutableListOf()
+            questionsId = mutableListOf()
+            answers = mutableListOf()
+        }
+
+        val gameQuestionText = "${getString(R.string.question_game_word)} (${(maxPoints / questions.size.toDouble()).roundToInt()} poin)"
+        binding.questionText.text = gameQuestionText
 
         binding.root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -67,11 +109,21 @@ class GameWordActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogListe
         })
     }
 
+    private fun getUserIdToken() {
+        val tokenManager = TokenManager(this)
+        val idToken = tokenManager.getIDToken()
+        if (idToken != null) {
+            userIdToken = idToken
+        }
+    }
+
     private fun updateProgress() {
         binding.progressBar.progress = (currentQuestionIndex * 100) / questions.size
     }
 
     private fun updateQuestion() {
+        val resource = getFixedResources(answers[currentQuestionIndex]!!)
+        binding.questionImage.setImageResource(resource ?: R.drawable.img_bg_game)
         binding.choice1.text = questions[currentQuestionIndex][0]
         binding.choice2.text = questions[currentQuestionIndex][1]
         binding.choice3.text = questions[currentQuestionIndex][2]
@@ -108,11 +160,14 @@ class GameWordActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogListe
             layoutParams.height = choiceSize - (12 * 4)
             choice.layoutParams = layoutParams
 
-            choice.setOnClickListener { it ->
+            choice.setOnClickListener {
                 it.isSelected = true
                 (it as TextView).setTextColor(getColor(R.color.white))
+                val userAnswer = it.text
 
-                if(it.text == answers[currentQuestionIndex]) {
+                answerQuestion(userIdToken, questionsId[currentQuestionIndex]!!, "$userAnswer")
+
+                if(userAnswer == answers[currentQuestionIndex]) {
                     updateScore()
                     showDialogChoice(true)
                 } else {
@@ -133,12 +188,14 @@ class GameWordActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogListe
                         }
                     } else {
                         val result = "$score / ${questions.size}"
-                        val i = Intent(this@GameWordActivity, GameOnBoardActivity::class.java)
-                        i.putExtra("TITLE", title)
-                        i.putExtra("STATE", "STATE_END")
-                        i.putExtra("POINTS", score * 100)
-                        i.putExtra("RESULT", result)
-                        startActivity(i)
+                        val pointsUserGained = (score.toDouble() / questions.size.toDouble()) * maxPoints
+
+                        val intentResult = Intent(this@GameWordActivity, GameOnBoardActivity::class.java)
+                        intentResult.putExtra(GameOnBoardActivity.GAME_TITLE, binding.gameTitle.text.toString())
+                        intentResult.putExtra(GameOnBoardActivity.STATE, "STATE_END")
+                        intentResult.putExtra(GameOnBoardActivity.GAME_USER_SCORE, pointsUserGained.roundToInt())
+                        intentResult.putExtra(GameOnBoardActivity.GAME_USER_RESULT, result)
+                        startActivity(intentResult)
                         finish()
                     }
                 }, 2000)
@@ -146,12 +203,46 @@ class GameWordActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogListe
         }
     }
 
+    private fun initViewModel() {
+        val apiService = ApiConfig.getApiService()
+        val repo = GameRepository(apiService)
+        val gameViewModelFactory = GameViewModelFactory(repo)
+        gameViewModel = ViewModelProvider(this, gameViewModelFactory)[GameViewModel::class.java]
+
+        initObserver()
+    }
+
+    private fun initObserver() {
+        gameViewModel.errorMessage.observe(this) { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+                showToast("Koneksi bermasalah, silahkan coba lagi nanti!")
+                gameViewModel.clearErrorMessage()
+            }
+        }
+
+        gameViewModel.gameAnswerResponse.observe(this) { gameAnswerResponse ->
+            if(gameAnswerResponse.hasil != null) {
+                Log.d("ANSWER", gameAnswerResponse.hasil.toString())
+            }
+        }
+    }
+
+    private fun answerQuestion(token: String, idpertanyaan: String, jawaban: String) {
+        gameViewModel.answerQuestion(token, idpertanyaan, jawaban)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     private fun showDialogChoice(isCorrect: Boolean) {
         if(isCorrect) {
             val color = ContextCompat.getColor(this, R.color.correct)
+            val pointText = "+${(maxPoints / questions.size.toDouble()).roundToInt()} poin"
             binding.dialogIcon.setImageResource(R.drawable.ic_check)
             binding.dialogIcon.setColorFilter(color)
             binding.dialogText.text = getString(R.string.answer_correct)
+            binding.dialogPoint.text = pointText
             binding.dialogPoint.visibility = View.VISIBLE
         } else {
             val color = ContextCompat.getColor(this, R.color.error)

@@ -17,7 +17,7 @@
 
             <ImageView
                 android:id="@+id/game_image"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_bg_game"/>
@@ -42,17 +42,17 @@
             android:layout_height="wrap_content"
             android:text="Judul Game"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:paddingHorizontal="12dp"
-            android:paddingTop="12dp"/>
+            android:paddingVertical="12dp"/>
 
-        <TextView
-            android:id="@+id/game_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Belajar bersama Talkee, selesaikan semua kelas dan tambah wawasanmu sekarang!"
-            android:paddingHorizontal="12dp"
-            android:paddingBottom="12dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/game_desc"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Belajar bersama Talkee, selesaikan semua kelas dan tambah wawasanmu sekarang!"-->
+<!--            android:paddingHorizontal="12dp"-->
+<!--            android:paddingBottom="12dp"/>-->
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
