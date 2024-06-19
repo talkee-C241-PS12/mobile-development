@@ -19,8 +19,8 @@ android {
 
         buildConfigField("String", "BASE_URL", "\"https://backend-k6kpm6mhla-et.a.run.app/\"")
         buildConfigField("String", "MODEL_URL", "\"https://ml-back-k6kpm6mhla-et.a.run.app/\"")
-        buildConfigField("String", "WEB_CLIENT_ID", "\"313139762096-ag2o620aan48cooiv5qotar13hq6f0j2.apps.googleusercontent.com\"")
-        buildConfigField("String", "CLIENT_SECRET", "\"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\"")
+        buildConfigField("String", "WEB_CLIENT_ID", "\"CLIENT\"")
+        buildConfigField("String", "CLIENT_SECRET", "\"SECRET\"")
     }
 
     buildTypes {
