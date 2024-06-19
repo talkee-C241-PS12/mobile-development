@@ -147,7 +147,7 @@ class GameCameraActivity : AppCompatActivity(), ExitDialogFragment.ExitDialogLis
         }
 
         modelMLViewModel.modelMLResponse.observe(this) { modelMLResponse ->
-            var modelPrediction = "c"
+            var modelPrediction = "a"
             modelMLResponse.message?.let { message ->
                 Log.d("RESPONSE", message)
                 modelPrediction = message.lowercase()
