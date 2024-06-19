@@ -16,11 +16,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "BASE_URL", "\"https://backend-k6kpm6mhla-et.a.run.app/\"")
-        buildConfigField("String", "MODEL_URL", "\"https://ml-back-k6kpm6mhla-et.a.run.app/\"")
-        buildConfigField("String", "WEB_CLIENT_ID", "\"CLIENT\"")
-        buildConfigField("String", "CLIENT_SECRET", "\"SECRET\"")
     }
 
     buildTypes {
