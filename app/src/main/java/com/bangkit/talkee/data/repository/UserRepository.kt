@@ -1,6 +1,5 @@
 package com.bangkit.talkee.data.repository
 
-import android.util.Log
 import com.bangkit.talkee.data.response.ProfileResponse
 import com.bangkit.talkee.data.response.ProfileUpdateResponse
 import com.bangkit.talkee.data.response.SignInResponse

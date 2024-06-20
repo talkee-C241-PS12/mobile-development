@@ -4,14 +4,9 @@ import com.bangkit.talkee.data.response.GameAnswerResponse
 import com.bangkit.talkee.data.response.GameDetailResponse
 import com.bangkit.talkee.data.response.GameResponse
 import com.bangkit.talkee.data.response.GameStartResponse
-import com.bangkit.talkee.data.response.ModelMLResponse
 import com.bangkit.talkee.data.retrofit.ApiService
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
 class GameRepository(private val apiService: ApiService) {
 

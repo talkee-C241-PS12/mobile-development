@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.talkee.adapter.HistoryGameCameraAdapter
 import com.bangkit.talkee.adapter.HistoryGameSignAdapter
 import com.bangkit.talkee.adapter.HistoryGameWordAdapter
 import com.bangkit.talkee.data.preference.TokenManager
@@ -81,7 +82,9 @@ class HistoryDetailActivity : AppCompatActivity() {
         historyViewModel.historyDetailResponse.observe(this) { historyDetail ->
             isLoading(false)
             if (!(historyDetail.pertanyaan.isNullOrEmpty())) {
-                val adapter = when(gameType) {
+                val type = historyDetail.pertanyaan[0]?.tipe
+                val adapter = when(type) {
+                    0 -> HistoryGameCameraAdapter(historyDetail)
                     1 -> HistoryGameWordAdapter(historyDetail)
                     2 -> HistoryGameSignAdapter(historyDetail)
                     else -> HistoryGameWordAdapter(historyDetail)

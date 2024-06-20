@@ -1,18 +1,12 @@
 package com.bangkit.talkee
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.talkee.adapter.GameHomeAdapter
 import com.bangkit.talkee.adapter.LearnHomeAdapter
 import com.bangkit.talkee.data.repository.KelasRepository
 import com.bangkit.talkee.data.response.KelasItem
@@ -20,7 +14,6 @@ import com.bangkit.talkee.data.retrofit.ApiConfig
 import com.bangkit.talkee.data.viewmodel.KelasViewModel
 import com.bangkit.talkee.data.viewmodel.KelasViewModelFactory
 import com.bangkit.talkee.databinding.ActivityLearnHomeBinding
-import com.bangkit.talkee.databinding.ActivityLearnListBinding
 
 class LearnHomeActivity : AppCompatActivity() {
 

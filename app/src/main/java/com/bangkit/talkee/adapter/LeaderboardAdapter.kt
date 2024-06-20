@@ -8,6 +8,7 @@ import com.bangkit.talkee.data.response.LeaderboardItem
 import com.bangkit.talkee.data.response.LeaderboardResponse
 import com.bangkit.talkee.databinding.ViewLeaderboardItemBinding
 import com.bumptech.glide.Glide
+import kotlin.math.roundToInt
 
 class LeaderboardAdapter(private val leaderboard: LeaderboardResponse?) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
@@ -15,7 +16,7 @@ class LeaderboardAdapter(private val leaderboard: LeaderboardResponse?) : Recycl
         fun bind(item: LeaderboardItem) {
             binding.userName.text = item.nama
             binding.userRank.text = item.leaderboard.toString()
-            binding.userScore.text = item.poin.toString()
+            binding.userScore.text = item.poin?.roundToInt().toString()
             Glide.with(binding.userProfilePic.context).load(item.image).into(binding.userProfilePic)
 
             when(item.leaderboard) {

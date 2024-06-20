@@ -33,7 +33,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
-import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -207,7 +206,7 @@ class OnBoardActivity : AppCompatActivity() {
     private fun handleSignIn(idToken: String) {
         try {
             firebaseAuthWithGoogle(idToken)
-        } catch (e: GoogleIdTokenParsingException) {
+        } catch (e: Exception) {
             isLoading(false)
             Log.e("ERROR GOOGLE", "Received an invalid google id token response", e)
         }

@@ -8,13 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.talkee.data.response.KelasDetailItem
-import com.bangkit.talkee.data.response.KelasItem
 import com.bangkit.talkee.databinding.ActivityLearnVideoBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-
 
 class LearnVideoActivity : AppCompatActivity() {
 

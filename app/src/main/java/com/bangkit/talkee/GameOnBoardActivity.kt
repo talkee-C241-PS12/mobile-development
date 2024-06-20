@@ -133,9 +133,10 @@ class GameOnBoardActivity : AppCompatActivity() {
         gameViewModel.gameDetailResponse.observe(this) { gameDetailResponse ->
             if(gameDetailResponse.nama != null) {
                 val tips = gameDetailResponse.tips
-                val gameBoxText = "$tips\n\n+${gameDetailResponse.poin} poin"
+                    ?.replace("\\n", "\n")
+                    ?.replace("{poin}", gameDetailResponse.poin.toString())
 
-                binding.gameTextBox.text = gameBoxText
+                binding.gameTextBox.text = tips
 
                 val tokenManager = TokenManager(this)
                 val idToken = tokenManager.getIDToken()

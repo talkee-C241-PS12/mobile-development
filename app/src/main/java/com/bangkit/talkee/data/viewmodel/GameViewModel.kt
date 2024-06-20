@@ -14,7 +14,6 @@ import com.bangkit.talkee.data.response.ModelMLResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.io.File
 
 class GameViewModel(private val repo: GameRepository) : ViewModel() {
 

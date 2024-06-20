@@ -1,6 +1,5 @@
 package com.bangkit.talkee.data.repository
 
-import com.bangkit.talkee.data.response.HistoryResponse
 import com.bangkit.talkee.data.response.LeaderboardResponse
 import com.bangkit.talkee.data.retrofit.ApiService
 

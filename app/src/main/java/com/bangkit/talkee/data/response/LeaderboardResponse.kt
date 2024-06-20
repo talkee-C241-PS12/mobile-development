@@ -14,7 +14,7 @@ data class LeaderboardResponse(
 data class LeaderboardItem(
 
 	@field:SerializedName("poin")
-	val poin: Int? = null,
+	val poin: Double? = null,
 
 	@field:SerializedName("image")
 	val image: String? = null,
