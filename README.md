@@ -10,11 +10,11 @@ Talkee is the ultimate app for learning sign language through an engaging, gamif
 </ul>
 
 <h2>Installation</h2>
-To be able to install Talkee, you need to have an Android 8.0 or higher. You can download the apk file from the link below:<br>
+To install Talkee, ensure your device is running Android 8.0 or higher. You can download the APK file from the link below:<br>
 <a href="https://drive.google.com/file/d/1MOKmnrARXAoD35czYz6KVvD0eRGr-vby/view?usp=drive_link">Link APK</a>
 
 <h2>Usage</h2>
-To use Talkee, you need to Log in first using your Google Account. After log in, you will be taken to the home page. In this page you will be able to access Talkee video learning based module, game based learning assessment, leaderboard, history, and profile page.
+To get started with Talkee, simply log in using your Google Account. Once logged in, you'll be directed to the home page, where you can explore all of Talkee's features. Access video-based learning modules, engage in game-based learning assessments, track your progress on the leaderboard, review your learning history, and manage your profile.
 
 <h2>Development Tools</h2>
 <p align="left"> 
